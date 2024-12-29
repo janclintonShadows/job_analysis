@@ -13,7 +13,7 @@ class JobartiscraperItem(scrapy.Item):
 
 class VagasItem(scrapy.Item):
     # item para as vagas de trabalho
-    id_vaga = scrapy.Field()
+    id = scrapy.Field()
     cargo = scrapy.Field()
     setor = scrapy.Field()
     contrato = scrapy.Field()
@@ -26,10 +26,10 @@ class VagasItem(scrapy.Item):
 
 class CompetenciasItem(scrapy.Item):
     # item para as competencias do funcionario na empresa
-    id_competencia = scrapy.Field()
+    id = scrapy.Field()
     competencia = scrapy.Field()
 
 class RequisitosItem(scrapy.Item):
     # item para os requisitos ou aptidões que o funcionario deve ter para ser aceito na vaga
-    id_requisitos = scrapy.Field()
+    id = scrapy.Field()
     requisitos = scrapy.Field()

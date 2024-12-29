@@ -5,15 +5,29 @@
 
 
 # useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
+# from itemadapter import ItemAdapter
 import mysql.connector
 from scrapy.exporters import CsvItemExporter
 from jobartiscraper.items import VagasItem, CompetenciasItem, RequisitosItem
 from scrapy.exceptions import DropItem
+from datetime import datetime as dt
 
 class JobartiscraperPipeline:
     def process_item(self, item, spider):
+
+        if 'ano' in item:
+            data_atual = dt.today()
+            data = dt.strptime(item['ano'],r'%d/%m/%Y')
+            if data > data_atual:
+                item['ano'] = data.year - (data.year - data_atual.year)
+            else:
+                item['ano'] = data.year
+
+            item['experiencia'] = item['experiencia'].split(' ')[0]
+
         return item
+        
+        
 
 
 
@@ -77,11 +91,11 @@ class MySQLDBPipeline:
     
     def save_vagas(self, item):
         query = """
-        INSERT INTO vagas (cargo, setor, tipo_de_contrato, experiencia. nacionalidade, lingua, area, ano, titulacao
-        ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+        INSERT INTO vagas (cargo, setor, tipo_de_contrato, experiencia, nacionalidade, lingua, area, ano, titulacao
+        ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);
         """
 
-        self.cur.execute(query,(item['cargo'],item['setor'],item['contrato'],item['experiencia'],item['nacionalidade'],item['lingua'],item['are'],item['ano'],item['titulacao']))
+        self.cur.execute(query,(item['cargo'],item['setor'],item['contrato'],item['experiencia'],item['nacionalidade'],item['lingua'],item['area'],item['ano'],item['titulacao']))
         
         self.con.commit()
         # pegando o id criado automaticamente e salvando no Item ID
@@ -90,7 +104,7 @@ class MySQLDBPipeline:
     def save_competencias(self,item):
         query = """
         INSERT INTO competencia (competencia
-        ) VALUES (%s)
+        ) VALUES (%s);
         """
         self.cur.execute(query,(item['competencia'],))
         self.con.commit()
@@ -101,17 +115,17 @@ class MySQLDBPipeline:
         if 'id_vaga' in item:
             query = """
             INSERT INTO vaga_compentecia (id_vaga, id_compentecia
-            ) VALUES (%s,%s)
+            ) VALUES (%s,%s);
             """
-            self.cur.execute(query,(item['id_vaga'],item['id_competencia']))
+            self.cur.execute(query,(item['id_vaga'],item['id']))
             self.con.commit()
 
-    def save_requisitos(self,item):
+    def save_requisitos(self, item):
         query = """
         INSERT INTO requisitos (requisitos
-        ) VALUES (%s)
+        ) VALUES (%s);
         """
-        self.cur.execute(query,(item['competencia'],))
+        self.cur.execute(query,(item['requisitos'],))
         self.con.commit()
         # pegando o id criado automaticamente e salvando no Item ID
         item['id_requisitos'] = self.cur.lastrowid
@@ -120,7 +134,7 @@ class MySQLDBPipeline:
         if 'id_vaga' in item:
             query = """
             INSERT INTO vaga_requisitos (id_vaga, id_requisitos
-            ) VALUES (%s,%s)
+            ) VALUES (%s,%s);
             """
-            self.cur.execute(query,(item['id_vaga'],item['id_requisitos']))
+            self.cur.execute(query,(item['id_vaga'],item['id']))
             self.con.commit()

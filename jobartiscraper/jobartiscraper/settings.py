@@ -63,8 +63,8 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-#    "jobartiscraper.pipelines.JobartiscraperPipeline": 300,
-   "jobartiscraper.pipelines.MySQLDBPipeline" : 300,
+   "jobartiscraper.pipelines.JobartiscraperPipeline": 300,
+   "jobartiscraper.pipelines.MySQLDBPipeline" : 400,
 #    "jobartiscraper.pipelines.MultiCSVItemPipeline" : 400
 }
 

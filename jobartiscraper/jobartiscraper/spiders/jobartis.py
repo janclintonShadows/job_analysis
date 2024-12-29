@@ -42,10 +42,10 @@ class JobartisSpider(scrapy.Spider):
         vagas['setor'] = response.xpath('//div[@class="col-sm-9"]')[1].css('::text').get()
         vagas['titulacao'] = response.css('div:contains("Titulação mínima"):nth-child(7) > div.col-md-9.col-xs-6::text').get()
         vagas['experiencia'] = response.css('div:contains("Experiência exigida") > div.col-md-9.col-xs-6::text').get()
+        vagas['ano'] = response.xpath('//div[@class="col-sm-9 col-xs-6"]')[1].css('::text').get()
         vagas['nacionalidade'] = response.css('div:contains("Nacionalidade") > div.col-md-9.col-xs-6::text').get()
         vagas['lingua'] = response.css('div:contains("Línguas") > div.col-md-9.col-xs-6::text').get()
         vagas['area'] = response.css('div.col-md-9.col-sm-12 > a::text').get()
-        vagas['ano'] = response.xpath('//div[@class="col-sm-9 col-xs-6"]')[1].css('::text').get()
 
         # Vamos guardar os dados para cada competencia
         for comp in response.css('div.col-md-9.col-sm-12  li'):
