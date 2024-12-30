@@ -23,13 +23,15 @@ class VagasItem(scrapy.Item):
     lingua = scrapy.Field()
     area = scrapy.Field()
     ano = scrapy.Field(serializer = serialize_data)
-
-class CompetenciasItem(scrapy.Item):
-    # item para as competencias do funcionario na empresa
-    id = scrapy.Field()
     competencia = scrapy.Field()
-
-class RequisitosItem(scrapy.Item):
-    # item para os requisitos ou aptidões que o funcionario deve ter para ser aceito na vaga
-    id = scrapy.Field()
     requisitos = scrapy.Field()
+
+# class CompetenciasItem(scrapy.Item):
+#     # item para as competencias do funcionario na empresa
+#     id = scrapy.Field()
+#     competencia = scrapy.Field()
+
+# class RequisitosItem(scrapy.Item):
+#     # item para os requisitos ou aptidões que o funcionario deve ter para ser aceito na vaga
+#     id = scrapy.Field()
+#     requisitos = scrapy.Field()

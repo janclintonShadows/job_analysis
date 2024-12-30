@@ -1,5 +1,5 @@
 import scrapy
-from jobartiscraper.items import VagasItem, RequisitosItem, CompetenciasItem
+from jobartiscraper.items import VagasItem #, RequisitosItem, CompetenciasItem
 
 
 class JobartisSpider(scrapy.Spider):
@@ -46,21 +46,23 @@ class JobartisSpider(scrapy.Spider):
         vagas['nacionalidade'] = response.css('div:contains("Nacionalidade") > div.col-md-9.col-xs-6::text').get()
         vagas['lingua'] = response.css('div:contains("Línguas") > div.col-md-9.col-xs-6::text').get()
         vagas['area'] = response.css('div.col-md-9.col-sm-12 > a::text').get()
-
-        # Vamos guardar os dados para cada competencia
-        for comp in response.css('div.col-md-9.col-sm-12  li'):
-            competencia = CompetenciasItem()
-            competencia['competencia'] = comp.css('::text').get()
-            competencia['id_vaga'] = vagas['id']
-            yield competencia
-
-        # vamos guardar os dados para cada requisitos
-        for req in response.xpath('//*[@id="main-container"]/div/div[1]/div[3]/div[2]/div[11]/div[2]/p').css('::text'):
-            requisitos = RequisitosItem()
-            requisitos['requisitos'] = req.get()
-            requisitos['id_vaga'] = vagas['id']
-            yield requisitos
-
+        vagas['competencia'] = [comp.css('::text').get() for comp in response.css('div.col-md-9.col-sm-12  li')]
+        vagas['requisitos'] = [req.get() for req in response.xpath('//*[@id="main-container"]/div/div[1]/div[3]/div[2]/div[11]/div[2]/p').css('::text')]
         
+
         # retornando as vagas
         yield vagas
+
+        # Vamos guardar os dados para cada competencia
+        # for comp in response.css('div.col-md-9.col-sm-12  li'):
+        #     competencia = CompetenciasItem()
+        #     competencia['competencia'] = comp.css('::text').get()
+        #     # competencia['id_vaga'] = vagas['id']
+        #     yield competencia
+
+        # # vamos guardar os dados para cada requisitos
+        # for req in response.xpath('//*[@id="main-container"]/div/div[1]/div[3]/div[2]/div[11]/div[2]/p').css('::text'):
+        #     requisitos = RequisitosItem()
+        #     requisitos['requisitos'] = req.get()
+        #     # requisitos['id_vaga'] = vagas['id']
+        #     yield requisitos

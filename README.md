@@ -70,25 +70,25 @@ SELECT
     v.id AS vaga_id,
     v.cargo,
     v.setor,
-    v.tipo_contrato,
+    v.tipo_de_contrato,
     v.ano,
     v.titulacao,
     v.experiencia,
     v.nacionalidade,
-    v.linguas,
+    v.lingua,
     v.area,
-    GROUP_CONCAT(DISTINCT c.competencias) AS competencias,
+    GROUP_CONCAT(DISTINCT c.competencia) AS competencia,
     GROUP_CONCAT(DISTINCT r.requisitos) AS requisitos
 FROM
     vagas as v
 LEFT JOIN
-    vagas_competencias as vc ON v.id = vc.vaga_id
+    vaga_competencia as vc ON v.id = vc.id_vaga
 LEFT JOIN
-    competencias as c ON vc.competencia_id = c.id
+    competencia as c ON vc.id_competencia = c.id
 LEFT JOIN
-    vagas_requisitos as vr ON v.id = vr.vaga_id
+    vaga_requisitos as vr ON v.id = vr.id_vaga
 LEFT JOIN
-    requisitos as r a ON vr.aptidao_id = r.id
+    requisitos as r ON vr.id_requisitos = r.id
 GROUP BY
     v.id
 ```
