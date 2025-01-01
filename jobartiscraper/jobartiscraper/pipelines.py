@@ -61,85 +61,6 @@ class JobartiscraperPipeline:
 #             self.exporters['requisitos'].export_item(item)
 #         return item
 
-# class MySQLDBPipeline:
-
-#     def open_spider(self, spider):
-#         self.con = mysql.connector.connect(
-#             host = 'localhost', 
-#             user='root', 
-#             password ='', 
-#             database='emprego'
-#         )
-#         self.cur = self.con.cursor()
-
-
-#     def close_spider(self, spider):
-#         self.cur.close()
-#         self.con.close()
-
-
-#     def process_item(self, item, spider):
-#         if isinstance(item, VagasItem): 
-#             self.save_vagas(item) 
-#         elif isinstance(item, CompetenciasItem): 
-#             self.save_competencias(item) 
-#         elif isinstance(item, RequisitosItem): 
-#             self.save_requisitos(item) 
-#         else: 
-#             raise DropItem(f"Item desconhecido: {item}") 
-#         return item
-    
-#     def save_vagas(self, item):
-#         query = """
-#         INSERT INTO vagas (cargo, setor, tipo_de_contrato, experiencia, nacionalidade, lingua, area, ano, titulacao
-#         ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);
-#         """
-
-#         self.cur.execute(query,(item['cargo'],item['setor'],item['contrato'],item['experiencia'],item['nacionalidade'],item['lingua'],item['area'],item['ano'],item['titulacao']))
-        
-#         self.con.commit()
-#         # pegando o id criado automaticamente e salvando no Item ID
-#         item['id_vaga'] = self.cur.lastrowid
-
-#     def save_competencias(self,item):
-#         query = """
-#         INSERT INTO competencia (competencia
-#         ) VALUES (%s);
-#         """
-#         self.cur.execute(query,(item['competencia'],))
-#         self.con.commit()
-#         # pegando o id criado automaticamente e salvando no Item ID
-#         item['id'] = self.cur.lastrowid
-
-#         # salvando na tabela de relação com o id Vaga
-#         if 'id_vaga' in item:
-#             query = """
-#             INSERT INTO vaga_compentecia (id_vaga, id_compentecia
-#             ) VALUES (%s,%s);
-#             """
-#             self.cur.execute(query,(item['id_vaga'],item['id']))
-#             self.con.commit()
-
-#     def save_requisitos(self, item):
-#         query = """
-#         INSERT INTO requisitos (requisitos
-#         ) VALUES (%s);
-#         """
-#         self.cur.execute(query,(item['requisitos'],))
-#         self.con.commit()
-#         # pegando o id criado automaticamente e salvando no Item ID
-#         item['id'] = self.cur.lastrowid
-
-#         # salvando na tabela de relação com o id Vaga
-#         if 'id_vaga' in item:
-#             query = """
-#             INSERT INTO vaga_requisitos (id_vaga, id_requisitos
-#             ) VALUES (%s,%s);
-#             """
-#             self.cur.execute(query,(item['id_vaga'],item['id']))
-#             self.con.commit()
-
-
 
 class MySQLDB2Pipeline:
 
@@ -180,9 +101,10 @@ class MySQLDB2Pipeline:
             self.con.commit()
 
              # Pegando os ids e adicionando os elementos na tabela vaga_competencia
+             # apagar desde a linha 38.
             id = self.cur.lastrowid
             query = """
-             INSERT INTO vaga_compentecia (id_vaga, id_compentecia
+             INSERT INTO vaga_competencia (id_vaga, id_compentecia
              ) VALUES (%s,%s);
              """
             self.cur.execute(query,(item['id'],id))
