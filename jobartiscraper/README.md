@@ -1,6 +1,6 @@
-![jobastis image](../imgs/jobartis_page.png)
-
 # JobArtisScraper
+
+![jobastis image](../imgs/jobartis_page.png)
 
 ## Introdução
 
@@ -18,7 +18,7 @@ Este projeto contém um webscraper desenvolvido em Python, utilizando a bibliote
 - `middlewares.py`: Configuração dos middlewares do Scrapy (se necessário).
 - `pipelines.py`: Configuração dos pipelines de processamento e armazenamento dos dados no banco de dados.
 - `settings.py`: Configurações do Scrapy, incluindo parâmetros de conexão com o banco de dados.
-- `spiders/`: Diretório contendo os spiders responsáveis pela coleta dos dados do site JobArtis.com.
+- `spiders/jobartis.py`: Diretório contendo os spiders responsáveis pela coleta dos dados do site JobArtis.com.
 - `README.md`: Documentação do projeto.
 
 ## Requisitos
@@ -47,7 +47,7 @@ Este projeto contém um webscraper desenvolvido em Python, utilizando a bibliote
 3. Instale as dependências:
 
     ```bash
-    pip install -r requirements.txt
+    pip install -r /outros/requirements.txt
     ```
 
 4. Configure o banco de dados MySQL:
@@ -74,5 +74,3 @@ Este projeto contém um webscraper desenvolvido em Python, utilizando a bibliote
 ## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests para melhorias e correções.
-
-

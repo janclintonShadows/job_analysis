@@ -1,0 +1,41 @@
+Metodologia CRISP-DM
+
+1 - Entendimento do Negocio:
+
+O mercado de trabalho é muito competitivo e complicado, especialmente para aqueles que estão fora do mercado de trabalho, ou para quem pretende fazer uma transição.
+Sendo que os recrutadores pedem vários requisitos em uma vaga de trabalho, entre eles anos de experiências, formação, habilidades e certificações, saber quais são os requisitos mais frequentemente pedidos para uma categoria ou área, poderia ajudar aqueles fora do mercado laboral, a se prepararem melhor quando forem a se preparar para uma dada vaga.
+
+1.1 - Objetivos do Negócio:
+
+Identificar os requisitos importantes que os recrutadores pedem para uma vaga de trabalho de determinada área.
+
+1.2 - Situação Atual:
+
+1.2.1 - Avaliação de Recursos:
+
+Python, SQL, Tableau, VSCode, NLP
+
+1.2.2 - Análise de Desempenho:
+
+Actualmente as pessoas não sabem que requisitos são os mais requeridos pelos recrutadores, e perdem tempo aprendendo varias coisas que podem não ser o essencial para aumentar a possibilidade de conseguir a tão sonhada vaga de emprego.
+
+1.2.3 - Identificação de Problemas:
+
+Não temos uma fonte de dados que podemos usar para a analise.
+
+1.2.4 - Oportunidades de Melhoria:
+
+Englobar informações por categorias, podem indicar o que as pessoas podem se focar para se candidatarem para uma determinada vaga de trabalho.
+
+2 - Entendimento dos Dados:
+
+Como não temos dados disponivel, recorremos a metodo de raspagem web (webscraping), para obtermos os dados para nossa analise.
+
+2.1 - Coleta de Dados:
+
+Para esse projecto a fonte de dados escolhida foi a vagas de emprego disponivel no site [jobartis.com](www.jobartis.com).
+
+Os dados serão armazenados em um banco de dados.
+
+
+

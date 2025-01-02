@@ -4,7 +4,6 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-from funcoes.Serializador import serialize_data, serialize_split_num_part
 
 class JobartiscraperItem(scrapy.Item):
     # define the fields for your item here like:
@@ -18,11 +17,11 @@ class VagasItem(scrapy.Item):
     setor = scrapy.Field()
     contrato = scrapy.Field()
     titulacao = scrapy.Field()
-    experiencia = scrapy.Field(serializer = serialize_split_num_part)
+    experiencia = scrapy.Field()
     nacionalidade = scrapy.Field()
     lingua = scrapy.Field()
     area = scrapy.Field()
-    ano = scrapy.Field(serializer = serialize_data)
+    ano = scrapy.Field()
     competencia = scrapy.Field()
     requisitos = scrapy.Field()
 

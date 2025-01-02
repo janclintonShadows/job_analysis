@@ -53,16 +53,3 @@ class JobartisSpider(scrapy.Spider):
         # retornando as vagas
         yield vagas
 
-        # Vamos guardar os dados para cada competencia
-        # for comp in response.css('div.col-md-9.col-sm-12  li'):
-        #     competencia = CompetenciasItem()
-        #     competencia['competencia'] = comp.css('::text').get()
-        #     # competencia['id_vaga'] = vagas['id']
-        #     yield competencia
-
-        # # vamos guardar os dados para cada requisitos
-        # for req in response.xpath('//*[@id="main-container"]/div/div[1]/div[3]/div[2]/div[11]/div[2]/p').css('::text'):
-        #     requisitos = RequisitosItem()
-        #     requisitos['requisitos'] = req.get()
-        #     # requisitos['id_vaga'] = vagas['id']
-        #     yield requisitos

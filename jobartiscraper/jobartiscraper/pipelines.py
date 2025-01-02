@@ -7,9 +7,7 @@
 # useful for handling different item types with a single interface
 # from itemadapter import ItemAdapter
 import mysql.connector
-from scrapy.exporters import CsvItemExporter
 # from jobartiscraper.items import VagasItem, CompetenciasItem, RequisitosItem
-from scrapy.exceptions import DropItem
 from datetime import datetime as dt
 
 class JobartiscraperPipeline:
@@ -17,11 +15,15 @@ class JobartiscraperPipeline:
 
         if 'ano' in item:
             data_atual = dt.today()
-            data = dt.strptime(item['ano'],r'%d/%m/%Y')
-            if data > data_atual:
-                item['ano'] = data.year - (data.year - data_atual.year)
-            else:
-                item['ano'] = data.year
+            try:
+                data = dt.strptime(item['ano'],r'%d/%m/%Y')
+                if data > data_atual:
+                    item['ano'] = data.year - (data.year - data_atual.year)
+                else:
+                    item['ano'] = data.year
+            except Exception as e:
+                print('ano alterado para ano atual')
+                item['ano'] = dt.today().year
 
             if 'nenhum' in item['experiencia'].lower():
                 item['experiencia'] = 0
@@ -30,37 +32,6 @@ class JobartiscraperPipeline:
 
         return item
         
-        
-# class MultiCSVItemPipeline:
-#     def open_spider(self, spider):
-#         self.files = {
-#             'vaga': open('vagas.csv', 'wb'),
-#             'competencia': open('competencias.csv', 'wb'),
-#             'requisitos': open('requisitos.csv', 'wb')
-#         }
-#         self.exporters = {
-#             'vaga': CsvItemExporter(self.files['vaga']),
-#             'competencia': CsvItemExporter(self.files['competencia']),
-#             'requisitos': CsvItemExporter(self.files['requisitos'])
-#         }
-#         for exporter in self.exporters.values():
-#             exporter.start_exporting()
-    
-#     def close_spider(self, spider):
-#         for exporter in self.exporters.values():
-#             exporter.finish_exporting()
-#         for file in self.files.values():
-#             file.close()
-
-#     def process_item(self, item, spider):
-#         if isinstance(item, VagasItem):
-#             self.exporters['vaga'].export_item(item)
-#         elif isinstance(item, CompetenciasItem):
-#             self.exporters['competencia'].export_item(item)
-#         elif isinstance(item, RequisitosItem):
-#             self.exporters['requisitos'].export_item(item)
-#         return item
-
 
 class MySQLDB2Pipeline:
 
@@ -101,10 +72,10 @@ class MySQLDB2Pipeline:
             self.con.commit()
 
              # Pegando os ids e adicionando os elementos na tabela vaga_competencia
-             # apagar desde a linha 38.
+             # apagar desde a linha 102.
             id = self.cur.lastrowid
             query = """
-             INSERT INTO vaga_competencia (id_vaga, id_compentecia
+             INSERT INTO vaga_competencia (id_vaga, id_competencia
              ) VALUES (%s,%s);
              """
             self.cur.execute(query,(item['id'],id))
