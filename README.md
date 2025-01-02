@@ -200,7 +200,7 @@ Segue-se abaixo a descrição de cada uma das colunas do nosso banco de dados:
         - __Descrição__: Identificador único da competência. É a chave primária da tabela e é incrementado automaticamente.
 
     2. __competencia__:
-        - __Tipo__: `VARCHAR(255)`
+        - __Tipo__: `TEXT`
         - __Descrição__: A descrição da competência exigida para a vaga. Por exemplo, "Configuração de equipamentos".
 
 - __Tabela `vaga_competencia`__
@@ -219,7 +219,7 @@ Segue-se abaixo a descrição de cada uma das colunas do nosso banco de dados:
         - __Descrição__: Identificador único da aptidão. É a chave primária da tabela e é incrementado automaticamente.
 
     2. __requisitos__:
-        - __Tipo__: `VARCHAR(255)`
+        - __Tipo__: `TEXT`
         - __Descrição__: A descrição dos requisitos exigida para a vaga. Por exemplo, "Organização".
 
 - __Tabela `vaga_requisitos`__
